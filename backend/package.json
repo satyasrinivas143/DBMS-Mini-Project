@@ -1,0 +1,23 @@
+{
+  "name": "smartfinance-backend",
+  "version": "1.0.0",
+  "description": "Node.js backend for SmartFinance student money manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "smartfinance",
+    "student-budget",
+    "finance",
+    "express"
+  ],
+  "author": "Copilot",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "sql.js": "^1.15.2"
+  }
+}
