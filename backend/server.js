@@ -280,7 +280,20 @@ async function start() {
     res.json({ message: 'Logged out' });
   });
 
-  app.use('/api', requireAuth(db));
+  app.get('/api/admin/user-count', (req, res) => {
+  const adminKey = process.env.ADMIN_KEY;
+  const suppliedKey = req.get('x-admin-key') || '';
+
+  if (!adminKey || suppliedKey.length !== adminKey.length ||
+      !crypto.timingSafeEqual(Buffer.from(suppliedKey), Buffer.from(adminKey))) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const result = rows(db, 'SELECT COUNT(*) AS totalUsers FROM users');
+  res.json({ totalUsers: result[0].totalUsers });
+});
+
+app.use('/api', requireAuth(db));
 
   app.get('/api/profile', (req, res) => res.json({ user: req.user }));
 
